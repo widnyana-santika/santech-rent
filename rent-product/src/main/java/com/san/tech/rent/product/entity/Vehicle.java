@@ -9,7 +9,7 @@ import javax.persistence.*;
 @MappedSuperclass
 @Getter
 @Setter
-public abstract class Vehicle {
+public class Vehicle {
     @Id
     @SequenceGenerator(
             name = "car_sequence",
@@ -21,14 +21,15 @@ public abstract class Vehicle {
             generator = "car_sequence"
     )
     private long id;
-    private String platNumber;
+    private long vehicleType;
+    private long vehicleModel;
     private Transmission transmission;
-    private int seats;
+    private int seat;
+    private int baggage;
 
-    public Vehicle(String platNumber, Transmission transmission, int seats) {
-        this.platNumber = platNumber;
+    public Vehicle(Transmission transmission, int seats) {
         this.transmission = transmission;
-        this.seats = seats;
+        this.seat = seats;
     }
 
     public Vehicle() {
