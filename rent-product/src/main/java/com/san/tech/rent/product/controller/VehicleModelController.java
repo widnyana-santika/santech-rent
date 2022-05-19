@@ -22,7 +22,7 @@ public class VehicleModelController {
     // search
     @GetMapping
     public List<VehicleModel> getModel(){
-        return service.getModel();
+        return service.getModels();
     }
 
     // read

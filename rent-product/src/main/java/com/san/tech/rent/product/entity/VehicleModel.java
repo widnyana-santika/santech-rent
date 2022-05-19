@@ -14,13 +14,13 @@ import javax.persistence.*;
 public class VehicleModel {
     @Id
     @SequenceGenerator(
-            name = "car_sequence",
-            sequenceName = "car_sequence",
+            name = "vehicleModel_sequence",
+            sequenceName = "vehicleModel_sequence",
             allocationSize = 1
     )
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
-            generator = "car_sequence"
+            generator = "vehicleModel_sequence"
     )
     private Long id;
     private String brand;

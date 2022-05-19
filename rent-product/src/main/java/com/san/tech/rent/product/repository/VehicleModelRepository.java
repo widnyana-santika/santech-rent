@@ -11,5 +11,5 @@ import java.util.Optional;
 public interface VehicleModelRepository extends JpaRepository<VehicleModel, Long> {
 
     @Query("SELECT m FROM VehicleModel m WHERE m.brand = ?1 and m.model = ?2 ")
-    public Optional<VehicleModel> findByBrandAndModel(String brand, String model);
+    Optional<VehicleModel> findByBrandAndModel(String brand, String model);
 }

@@ -31,7 +31,7 @@ public class VehicleModelServiceImpl implements VehicleModelService, MessageSour
     }
 
     @Override
-    public List<VehicleModel> getModel() {
+    public List<VehicleModel> getModels() {
         return repository.findAll();
     }
 
@@ -67,8 +67,6 @@ public class VehicleModelServiceImpl implements VehicleModelService, MessageSour
     @Override
     @Transactional
     public void updateModel(Long id, String brand, String model) {
-        boolean exist = repository.existsById(id);
-
         VehicleModel vehicleModel = repository.findById(id)
                 .orElseThrow( () -> new IllegalStateException(
                         messageSource.getMessage(
