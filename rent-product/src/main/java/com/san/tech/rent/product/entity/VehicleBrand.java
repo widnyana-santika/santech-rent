@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Entity
 @Table
 @NoArgsConstructor
-public class VehicleModel {
+public class VehicleBrand {
     @Id
     @SequenceGenerator(
             name = "vehicleModel_sequence",
@@ -24,12 +24,10 @@ public class VehicleModel {
     )
     private Long id;
     private String brand;
-    private String model;
     private String manufacture;
 
-    public VehicleModel(String brand, String model, String manufacture){
+    public VehicleBrand(String brand, String manufacture){
         this.brand = brand;
-        this.model = model;
         this.manufacture = manufacture;
     }
 }

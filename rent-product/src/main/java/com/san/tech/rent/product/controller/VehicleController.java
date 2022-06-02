@@ -49,13 +49,19 @@ public class VehicleController {
     @PutMapping(path = "{vehicleId}")
     public void updateVehicle(
             @PathVariable("vehicleId") Long id,
-            @RequestParam(required = true) Long typeId,
-            @RequestParam(required = true) Long modelId,
-            @RequestParam(required = true) String transmission,
-            @RequestParam(required = true) int seat,
-            @RequestParam(required = true) int baggage
+            @RequestParam() Long typeId,
+            @RequestParam() Long brandId,
+            @RequestParam() String model,
+            @RequestParam() String transmission,
+            @RequestParam() int seat,
+            @RequestParam() int baggage
     ){
-        service.updateVehicle(id, typeId, modelId, transmission, seat, baggage);
+        service.updateVehicle(id, typeId, brandId, model, transmission, seat, baggage);
+    }
+
+    @DeleteMapping(path = "{vehicleId}")
+    public void deleteVehicle(@PathVariable("vehicleId") Long id){
+        service.deleteVehicle(id);
     }
 
 }

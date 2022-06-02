@@ -1,7 +1,5 @@
 package com.san.tech.rent.product.type;
 
-import lombok.Getter;
-
 public class VehicleType {
     public static final String VEHICLE_TYPE = "Vehicle Type";
     public static final String VEHICLE_MODEL = "Vehicle Model";

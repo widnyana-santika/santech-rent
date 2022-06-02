@@ -1,8 +1,8 @@
 package com.san.tech.rent.product.serviceImpl;
 
-import com.san.tech.rent.product.entity.VehicleModel;
-import com.san.tech.rent.product.repository.VehicleModelRepository;
-import com.san.tech.rent.product.service.VehicleModelService;
+import com.san.tech.rent.product.entity.VehicleBrand;
+import com.san.tech.rent.product.repository.VehicleBrandRepository;
+import com.san.tech.rent.product.service.VehicleBrandService;
 import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,25 +18,25 @@ import java.util.Optional;
 
 @Service
 @Primary
-public class VehicleModelServiceImpl implements VehicleModelService, MessageSourceAware {
+public class VehicleBrandServiceImpl implements VehicleBrandService, MessageSourceAware {
 
-    private VehicleModelRepository repository;
+    private VehicleBrandRepository repository;
 
     @Setter
     private MessageSource messageSource;
 
     @Autowired
-    public VehicleModelServiceImpl(VehicleModelRepository repository){
+    public VehicleBrandServiceImpl(VehicleBrandRepository repository){
         this.repository = repository;
     }
 
     @Override
-    public List<VehicleModel> getModels() {
+    public List<VehicleBrand> getBrands() {
         return repository.findAll();
     }
 
     @Override
-    public VehicleModel readModel(Long id) {
+    public VehicleBrand readBrand(Long id) {
         return repository.findById(id).orElseThrow(() ->
                 new IllegalStateException(
                         messageSource.getMessage(
@@ -49,25 +49,25 @@ public class VehicleModelServiceImpl implements VehicleModelService, MessageSour
     }
 
     @Override
-    public void createModel(VehicleModel vehicleModel) {
+    public void createBrand(VehicleBrand vehicleBrand) {
         // validation if brand and model already exists
-        Optional<VehicleModel> modelExist = repository.findByBrandAndModel(vehicleModel.getBrand(), vehicleModel.getModel());
+        Optional<VehicleBrand> modelExist = repository.findByBrandAndModel(vehicleBrand.getBrand());
 
         if(modelExist.isPresent()){
             throw new IllegalStateException(
                     messageSource.getMessage(
                             "err001.model.exists",
-                            new Object[]{modelExist.get().getBrand(), modelExist.get().getModel()},
+                            new Object[]{modelExist.get().getBrand()},
                             Locale.ENGLISH));
         }
 
-        repository.save(vehicleModel);
+        repository.save(vehicleBrand);
     }
 
     @Override
     @Transactional
-    public void updateModel(Long id, String brand, String model) {
-        VehicleModel vehicleModel = repository.findById(id)
+    public void updateBrand(Long id, String brand) {
+        VehicleBrand vehicleBrand = repository.findById(id)
                 .orElseThrow( () -> new IllegalStateException(
                         messageSource.getMessage(
                                 "err002.model.does.not.exists",
@@ -75,19 +75,15 @@ public class VehicleModelServiceImpl implements VehicleModelService, MessageSour
                                 Locale.ENGLISH))
         );
 
-        updateValidation(brand, model);
+        updateValidation(brand);
 
         if(StringUtils.isNotEmpty(brand)) {
-            vehicleModel.setBrand(brand);
-        }
-
-        if(StringUtils.isNotEmpty(model)){
-            vehicleModel.setModel(model);
+            vehicleBrand.setBrand(brand);
         }
     }
 
     @Override
-    public void deleteModel(Long id) {
+    public void deleteBrand(Long id) {
         boolean exist = repository.existsById(id);
 
         if(!exist){
@@ -102,13 +98,13 @@ public class VehicleModelServiceImpl implements VehicleModelService, MessageSour
         repository.deleteById(id);
     }
 
-    private void updateValidation(String brand, String model){
-        Optional<VehicleModel> modelExist = repository.findByBrandAndModel(brand, model);
+    private void updateValidation(String brand){
+        Optional<VehicleBrand> modelExist = repository.findByBrandAndModel(brand);
         if(modelExist.isPresent()){
             throw new IllegalStateException(
                     messageSource.getMessage(
                             "err001.model.exists",
-                            new Object[]{modelExist.get().getBrand(), modelExist.get().getModel()},
+                            new Object[]{modelExist.get().getBrand()},
                             Locale.ENGLISH));
         }
     }

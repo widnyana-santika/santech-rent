@@ -1,6 +1,5 @@
 package com.san.tech.rent.product.serviceImpl;
 
-import com.san.tech.rent.product.entity.Vehicle;
 import com.san.tech.rent.product.entity.VehicleType;
 import com.san.tech.rent.product.repository.VehicleTypeRepository;
 import com.san.tech.rent.product.service.VehicleTypeService;

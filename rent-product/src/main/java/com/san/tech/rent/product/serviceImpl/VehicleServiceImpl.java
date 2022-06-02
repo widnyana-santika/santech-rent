@@ -1,10 +1,10 @@
 package com.san.tech.rent.product.serviceImpl;
 
 import com.san.tech.rent.product.entity.Vehicle;
-import com.san.tech.rent.product.entity.VehicleModel;
+import com.san.tech.rent.product.entity.VehicleBrand;
 import com.san.tech.rent.product.entity.VehicleType;
 import com.san.tech.rent.product.repository.VehicleRepository;
-import com.san.tech.rent.product.service.VehicleModelService;
+import com.san.tech.rent.product.service.VehicleBrandService;
 import com.san.tech.rent.product.service.VehicleService;
 import com.san.tech.rent.product.service.VehicleTypeService;
 import com.san.tech.rent.product.type.Transmission;
@@ -27,7 +27,7 @@ public class VehicleServiceImpl implements VehicleService, MessageSourceAware {
 
     private VehicleTypeService typeService;
 
-    private VehicleModelService modelService;
+    private VehicleBrandService modelService;
 
     @Setter
     private MessageSource messageSource;
@@ -35,7 +35,7 @@ public class VehicleServiceImpl implements VehicleService, MessageSourceAware {
     @Autowired
     public VehicleServiceImpl(VehicleRepository repository,
                               VehicleTypeService typeService,
-                              VehicleModelService modelService){
+                              VehicleBrandService modelService){
         this.repository = repository;
         this.typeService = typeService;
         this.modelService = modelService;
@@ -54,7 +54,7 @@ public class VehicleServiceImpl implements VehicleService, MessageSourceAware {
 
     @Override
     public List<Vehicle> getVehicleByModel(Long id) {
-        VehicleModel model = modelService.readModel(id);
+        VehicleBrand model = modelService.readBrand(id);
         return repository.findVehicleByVehicleModelId(model.getId());
     }
 
@@ -77,24 +77,31 @@ public class VehicleServiceImpl implements VehicleService, MessageSourceAware {
         validator.validateVehicleCrateAttribute(vehicle);
 
         VehicleType type = typeService.readType(vehicle.getVehicleTypeId());
-        VehicleModel model = modelService.readModel(vehicle.getVehicleModelId());
+        VehicleBrand model = modelService.readBrand(vehicle.getVehicleBrandId());
 
         repository.save(vehicle);
     }
 
     @Override
-    public void updateVehicle(Long id, Long typeId, Long modelId, String transmission, int seat, int baggage) {
+    public void updateVehicle(Long id, Long typeId, Long modelId, String model, String transmission, int seat, int baggage) {
         VehicleValidator validator = new VehicleValidator(messageSource);
         validator.validateVehicleUpdateAttribute(transmission, seat, baggage);
 
         VehicleType type = typeService.readType(id);
-        VehicleModel model = modelService.readModel(id);
+        VehicleBrand brand = modelService.readBrand(id);
         Vehicle vehicle = readVehicle(id);
 
         vehicle.setVehicleTypeId(type.getId());
-        vehicle.setVehicleModelId(model.getId());
+        vehicle.setVehicleBrandId(brand.getId());
         vehicle.setTransmission(Transmission.valueOf(transmission));
         vehicle.setSeat(seat);
         vehicle.setBaggage(baggage);
+    }
+
+    @Override
+    public void deleteVehicle(Long id) {
+        Vehicle vehicle = readVehicle(id);
+
+        repository.deleteById(vehicle.getId());
     }
 }

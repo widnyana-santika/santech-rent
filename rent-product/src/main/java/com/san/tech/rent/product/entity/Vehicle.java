@@ -25,15 +25,18 @@ public class Vehicle {
     )
     private long id;
     private long vehicleTypeId;
-    private long vehicleModelId;
+    private long vehicleBrandId;
+    private String model;
     @Enumerated(EnumType.STRING)
     private Transmission transmission;
     private int seat;
     private int baggage;
 
-    public Vehicle(long vehicleTypeId, long vehicleModelId, Transmission transmission, int seats, int baggage) {
+    public Vehicle(long vehicleTypeId, long vehicleBrandId, String model,
+                   Transmission transmission, int seats, int baggage) {
         this.vehicleTypeId = vehicleTypeId;
-        this.vehicleModelId = vehicleModelId;
+        this.model = model;
+        this.vehicleBrandId = vehicleBrandId;
         this.transmission = transmission;
         this.seat = seats;
         this.baggage = baggage;
