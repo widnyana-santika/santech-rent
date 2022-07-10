@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SantechRentApplication {
+public class RentProductApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SantechRentApplication.class, args);
+		SpringApplication.run(RentProductApplication.class, args);
 	}
 
 }

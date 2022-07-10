@@ -6,6 +6,7 @@
 	<modules>
 		<module>rent-product</module>
 		<module>rent-transaction</module>
+		<module>rent-customer</module>
 	</modules>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -18,9 +19,11 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>santech-rent</name>
 	<description>Vehicle Rental</description>
+
 	<properties>
 		<java.version>11</java.version>
 	</properties>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

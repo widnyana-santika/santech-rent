@@ -26,10 +26,10 @@ public class VehicleValidator {
         integerCannotLessThanOne(vehicle.getBaggage(), VehicleType.BAGGAGE);
     }
 
-    public void validateVehicleUpdateAttribute(String transmission, int seat, int baggage){
-        stringCannotEmpty(transmission, VehicleType.TRANSMISSION);
-        integerCannotLessThanOne(seat, VehicleType.SEAT);
-        integerCannotLessThanOne(baggage, VehicleType.BAGGAGE);
+    public void validateVehicleUpdateAttribute(Vehicle vehicle){
+        stringCannotEmpty(vehicle.getTransmission().getValue(), VehicleType.TRANSMISSION);
+        integerCannotLessThanOne(vehicle.getSeat(), VehicleType.SEAT);
+        integerCannotLessThanOne(vehicle.getBaggage(), VehicleType.BAGGAGE);
     }
 
     private void objectCannotEmpty(Object value, String attributeType){

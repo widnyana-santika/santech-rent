@@ -15,6 +15,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.MessageSourceAware;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Locale;
@@ -83,19 +84,46 @@ public class VehicleServiceImpl implements VehicleService, MessageSourceAware {
     }
 
     @Override
-    public void updateVehicle(Long id, Long typeId, Long modelId, String model, String transmission, int seat, int baggage) {
+    @Transactional
+    public void updateVehicle(Long id, Vehicle vehicle) {
         VehicleValidator validator = new VehicleValidator(messageSource);
-        validator.validateVehicleUpdateAttribute(transmission, seat, baggage);
+        validator.validateVehicleUpdateAttribute(vehicle);
 
+        VehicleType type = typeService.readType(vehicle.getVehicleTypeId());
+        VehicleBrand brand = modelService.readBrand(vehicle.getVehicleBrandId());
+        Vehicle existVehicle = readVehicle(id);
+
+        existVehicle.setVehicleTypeId(type.getId());
+        existVehicle.setVehicleBrandId(brand.getId());
+        existVehicle.setModel(vehicle.getModel());
+        existVehicle.setTransmission(vehicle.getTransmission());
+        existVehicle.setSeat(vehicle.getSeat());
+        existVehicle.setBaggage(vehicle.getBaggage());
+    }
+
+    @Override
+    @Transactional
+    public void updateVehicle(Long id, Long typeId, Long modelId, String model, String transmission, int seat, int baggage) {
         VehicleType type = typeService.readType(id);
         VehicleBrand brand = modelService.readBrand(id);
         Vehicle vehicle = readVehicle(id);
 
+        String upper = transmission.toUpperCase();
+        Transmission transmission1 = Transmission.valueOf(upper);
+
         vehicle.setVehicleTypeId(type.getId());
         vehicle.setVehicleBrandId(brand.getId());
-        vehicle.setTransmission(Transmission.valueOf(transmission));
+        vehicle.setTransmission(transmission1);
+        vehicle.setModel(model);
         vehicle.setSeat(seat);
         vehicle.setBaggage(baggage);
+    }
+
+    @Override
+    public void updateModelVehicle(Long id, String model) {
+        Vehicle existVehicle = readVehicle(id);
+
+        existVehicle.setModel(model);
     }
 
     @Override

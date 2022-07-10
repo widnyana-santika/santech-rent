@@ -1,4 +1,4 @@
-package com.san.tech.rent.product.model;
+package com.san.tech.rent.product.type;
 
 public enum CarType {
     SUV,

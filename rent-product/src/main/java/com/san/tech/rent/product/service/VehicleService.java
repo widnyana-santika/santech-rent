@@ -15,7 +15,11 @@ public interface VehicleService {
 
     void createVehicle(Vehicle vehicle);
 
+    void updateVehicle(Long id, Vehicle vehicle);
+
     void updateVehicle(Long id, Long typeId, Long modelId, String model, String transmission, int seat, int baggage);
+
+    void updateModelVehicle(Long id, String model);
 
     void deleteVehicle(Long id);
 }

@@ -1,16 +1,16 @@
-package com.san.tech.rent.product.type;
+package com.san.tech.rent.type;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 
 import java.io.Serializable;
 
-public enum Transmission implements Serializable {
-    AUTOMATIC("automatic"),
-    MANUAL("manual");
+public enum Gender implements Serializable {
+    MALE("Male"),
+    FEMALE("Female");
 
     private String value;
 
-    Transmission(String value){
+    Gender(String value) {
         this.value = value;
     }
 

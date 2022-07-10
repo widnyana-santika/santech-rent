@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Configuration
-public class VehivleTypeConfig {
+public class VehicleTypeConfig {
     @Bean
     CommandLineRunner vehicleTypeCommandLineRunner(VehicleTypeRepository repository){
         return args -> {

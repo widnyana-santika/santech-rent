@@ -49,6 +49,14 @@ public class VehicleController {
     @PutMapping(path = "{vehicleId}")
     public void updateVehicle(
             @PathVariable("vehicleId") Long id,
+            @RequestBody() Vehicle vehicle
+    ){
+        service.updateVehicle(id, vehicle);
+    }
+
+    @PutMapping(path = "/update/{vehicleId}")
+    public void updateVehicle(
+            @PathVariable("vehicleId") Long id,
             @RequestParam() Long typeId,
             @RequestParam() Long brandId,
             @RequestParam() String model,
@@ -57,6 +65,14 @@ public class VehicleController {
             @RequestParam() int baggage
     ){
         service.updateVehicle(id, typeId, brandId, model, transmission, seat, baggage);
+    }
+
+    @PutMapping(path = "/model/{vehicleId}")
+    public void updateModelVehicle(
+            @PathVariable("vehicleId") Long id,
+            @RequestParam() String model
+    ){
+        service.updateModelVehicle(id, model);
     }
 
     @DeleteMapping(path = "{vehicleId}")
