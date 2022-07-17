@@ -14,7 +14,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document
 public class Book {
     @Id
-    private long id;
+    private String id;
     private CustomerDTO customer;
     private VehicleDTO vehicle;
     private long dateFrom;

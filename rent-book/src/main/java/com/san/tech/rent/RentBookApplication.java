@@ -1,4 +1,4 @@
-package com.san.tech.rent.book;
+package com.san.tech.rent;
 
 import com.san.tech.rent.book.dto.CustomerDTO;
 import com.san.tech.rent.book.dto.VehicleDTO;
